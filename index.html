@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wealth Nurturer | Financial Advisory & Wealth Solutions</title>
+    <!-- FontAwesome for LinkedIn and Social Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #0c3934; /* Deep Premium Emerald */
+            --secondary-color: #bfa15f; /* Elegant Gold */
+            --text-dark: #2d3748;
+            --text-light: #f7fafc;
+            --bg-light: #f8fafd;
+            --white: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        /* Navigation Bar */
+        nav {
+            background-color: var(--white);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 8%;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-icon {
+            color: var(--secondary-color);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--secondary-color);
+        }
+
+        .btn-portal {
+            background-color: var(--primary-color);
+            color: var(--white) !important;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: 600 !important;
+            transition: background 0.3s !important;
+        }
+
+        .btn-portal:hover {
+            background-color: var(--secondary-color);
+        }
+
+        /* Hero Section */
+        .hero {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            min-height: 80vh;
+            align-items: center;
+            padding: 0 8%;
+            background: linear-gradient(135deg, rgba(12,57,52,0.03) 0%, rgba(191,161,95,0.05) 100%);
+            gap: 50px;
+        }
+
+        .hero-text h1 {
+            font-size: 48px;
+            color: var(--primary-color);
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+
+        .hero-text p {
+            font-size: 18px;
+            color: #4a5568;
+            margin-bottom: 30px;
+        }
+
+        /* Placeholder for your professional photo */
+        .hero-image-container {
+            width: 100%;
+            height: 450px;
+            background-color: #e2e8f0;
+            border-radius: 15px;
+            border-bottom: 8px solid var(--secondary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #718096;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1);
+        }
+
+        /* Services Section */
+        .services {
+            padding: 80px 8%;
+            background-color: var(--white);
+            text-align: center;
+        }
+
+/* Unified Desktop Hover & Mobile Tap Architecture */
+        .service-card-mf {
+            position: static;
+        }
+        
+        /* DESKTOP HOVER WINDOW */
+        .mf-hover-popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 850px;
+            background: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.3);
+            border-top: 6px solid #2e7d32;
+            padding: 35px;
+            z-index: 99999;
+            text-align: left;
+            pointer-events: none;
+        }
+        .service-card-mf:hover .mf-hover-popup {
+            display: block;
+        }
+
+        /* MOBILE TOUCH DRAWER OVERRIDES */
+        @media (max-width: 900px) {
+            .service-card-mf:hover .mf-hover-popup {
+                display: none; /* Kill the desktop hover box on mobile */
+            }
+            
+            .mf-hover-popup {
+                display: block; 
+                position: relative;
+                top: 0;
+                left: 0;
+                transform: none;
+                width: 100%;
+                max-height: 0; /* Keeps it completely hidden until tapped */
+                overflow: hidden;
+                padding: 0;
+                border-radius: 8px;
+                border-top: none;
+                box-shadow: none;
+                transition: max-height 0.4s ease-out, margin-top 0.4s ease-out;
+                pointer-events: auto;
+            }
+
+            /* The core trick: when the secret checkbox is checked by a tap, open the drawer */
+            #mf-mobile-checkbox {
+                display: none;
+            }
+            #mf-mobile-checkbox:checked ~ .mf-hover-popup {
+                max-height: 1200px; /* Smoothly unrolls down */
+                margin-top: 20px;
+                padding: 15px;
+                border: 1px solid #e2e8f0;
+                border-top: 4px solid #2e7d32;
+                background: #fafafa;
+            }
+            
+            .mf-popup-grid {
+                grid-template-columns: 1fr !important;
+                gap: 20px !important;
+            }
+            .mobile-tap-hint { display: block !important; }
+            .desktop-hover-hint { display: none !important; }
+        }
+
+        .popup-col h4 {
+            font-size: 15px;
+            margin-bottom: 12px;
+            padding-bottom: 5px;
+            border-bottom: 2px solid #eee;
+            font-weight: 700;
+        }
+        .popup-col ul { list-style: none; padding: 0; margin: 0; }
+        .popup-col li { font-size: 14px; color: #2d3748; padding: 5px 0; line-height: 1.5; }
+
+        /* General internal typography specs */
+        .popup-col h4 {
+            font-size: 15px;
+            margin-bottom: 12px;
+            padding-bottom: 5px;
+            border-bottom: 2px solid #eee;
+            font-weight: 700;
+        }
+        .popup-col ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .popup-col li {
+            font-size: 14px;
+            color: #2d3748;
+            padding: 5px 0;
+            line-height: 1.5;
+        }
+        .section-title {
+            font-size: 36px;
+            color: var(--primary-color);
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background-color: var(--secondary-color);
+            margin: 10px auto 0;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .service-card {
+            padding: 40px 30px;
+            background: var(--bg-light);
+            border-radius: 10px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border-top: 4px solid transparent;
+            text-align: left;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            border-top: 4px solid var(--secondary-color);
+        }
+
+        .service-icon {
+            font-size: 32px;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+
+        .service-card h3 {
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+
+        /* Blog / Insights Section */
+        .blog-section {
+            padding: 80px 8%;
+        }
+
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .blog-card {
+            background: var(--white);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+        }
+
+        .blog-img-placeholder {
+            height: 200px;
+            background-color: #edf2f7;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #a0aec0;
+        }
+
+        .blog-content {
+            padding: 25px;
+        }
+
+        .blog-date {
+            font-size: 14px;
+            color: var(--secondary-color);
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .blog-content h4 {
+            color: var(--primary-color);
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        /* Transaction / Action Hub */
+        .action-hub {
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 60px 8%;
+            text-align: center;
+        }
+
+        .action-hub h2 {
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+
+        .portal-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .portal-btn {
+            background: transparent;
+            color: var(--white);
+            border: 2px solid var(--secondary-color);
+            padding: 12px 30px;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .portal-btn:hover {
+            background: var(--secondary-color);
+            color: var(--primary-color);
+        }
+
+        /* Footer */
+        footer {
+            background-color: #061d1a;
+            color: #a0aec0;
+            padding: 40px 8% 20px;
+            font-size: 14px;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #1a3a36;
+            padding-bottom: 30px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .social-links a {
+            color: var(--white);
+            font-size: 24px;
+            margin-left: 20px;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: var(--secondary-color);
+        }
+
+        .disclaimer {
+            font-size: 11px;
+            line-height: 1.5;
+            color: #718096;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero { grid-template-columns: 1fr; text-align: center; padding-top: 40px; }
+            nav { padding: 15px 5%; flex-direction: column; gap: 15px; }
+            .nav-links { flex-wrap: wrap; justify-content: center; }
+            .footer-content { flex-direction: column; text-align: center; }
+            .social-links { margin-top: 10px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Header -->
+    <nav>
+       <div class="logo" style="display: flex; align-items: center; gap: 12px;">
+            <img src="logo.png" alt="Wealth Nurturer Logo" style="display: block !important; height: 48px; width: auto; vertical-align: middle;" onerror="this.style.display='none';">
+            
+            <div style="display: flex; flex-direction: column; line-height: 1.2; text-align: center; align-items: center;">
+                <span style="font-family: 'Arial Black', sans-serif; font-weight: 900; font-size: 24px; letter-spacing: -0.5px;">
+                    <span style="color: #d32f2f;">Wealth</span> <span style="color: #2e7d32;">Nurturer</span>
+                </span>
+                <span style="font-family: 'Segoe UI', sans-serif; font-weight: 700; font-size: 11px; color: #0a2540; letter-spacing: 1.5px; text-transform: uppercase; margin-top: 2px;">
+                    House of Jains
+                </span>
+            </div>
+        </div>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#services">Services</a></li>
+            <li><a href="#blog">Insights</a></li>
+            <li><a href="https://www.linkedin.com/in/sethideepak1" target="_blank"><i class="fa-solid fa-user"></i> About Me</a></li>
+            <li><a href="#transact" class="btn-portal">Invest Online</a></li>
+        </ul>
+    </nav>
+
+ <header style="background-color: var(--white); padding: 40px 8% 0 8%; text-align: center;">
+        <div style="max-width: 1200px; margin: 0 auto;">
+            
+            <div style="margin-bottom: 0; padding-bottom: 15px;">
+                <h1 style="font-size: 42px; color: var(--primary-color); margin: 0 0 5px 0; font-family: 'Arial Black', sans-serif; font-weight: 900; line-height: 1.1;">
+                    Welcome to Wealth Nurturer
+                </h1>
+                <p style="font-size: 18px; color: #4a5568; max-width: 800px; margin: 0 auto; line-height: 1.4;">
+                    Your trusted partner in comprehensive financial advisory, mutual fund distribution, and custom wealth creation strategies.
+                </p>
+            </div>
+
+            <div style="width: 100%; display: flex; justify-content: center; margin: 0; padding: 0; line-height: 0;">
+                <img src="Profile.png" alt="Wealth Nurturer Banner" style="width: 100%; max-width: 1200px; height: auto; border-radius: 12px 12px 0 0; box-shadow: 0 10px 25px rgba(0,0,0,0.08); display: block; margin: 0;">
+            </div>
+
+        </div>
+    </header>
+   
+
+</div>
+ <div>
+  
+</div>
+</div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Core Advisory Portfolios -->
+   <section id="services" class="services">
+        <h2 class="section-title">Execution Architecture</h2>
+        <div class="services-grid">
+            
+<div class="service-card service-card-mf" style="padding: 0;">
+                
+                <label for="mf-mobile-checkbox" style="display: block; padding: 30px; cursor: pointer; margin: 0; -webkit-user-select: none; user-select: none;">
+                    <i class="fa-solid fa-chart-line service-icon"></i>
+                    <h3>Mutual Funds (MF)</h3>
+                    <p>Diversified equity, debt, and hybrid fund solutions mapped to tactical wealth horizons.</p>
+                    
+                    <div class="desktop-hover-hint" style="margin-top: 12px; font-size: 13px; color: var(--secondary-color); font-weight: 600; display: block;">
+                        <i class="fa-solid fa-hand-pointer"></i> Hover to view Top Picks
+                    </div>
+                    
+                    <div class="mobile-tap-hint" style="margin-top: 12px; font-size: 13px; color: var(--secondary-color); font-weight: 600; display: none;">
+                        <i class="fa-solid fa-circle-chevron-down"></i> Tap to view Top Picks
+                    </div>
+                </label>
+
+                <input type="checkbox" id="mf-mobile-checkbox">
+
+                <div class="mf-hover-popup">
+                    <h3 style="color: #0c3934; font-size: 20px; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; border-bottom: 1px solid #e2e8f0; padding-bottom: 10px;">
+                        <i class="fa-solid fa-star" style="color: #bfa15f;"></i> Top Recommended Core Portfolios
+                    </h3>
+                    <div class="mf-popup-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px;">
+                        
+                        <div class="popup-col">
+                            <h4 style="color: #2e7d32; border-color: rgba(46,125,50,0.2);">Large Cap</h4>
+                            <ul>
+                                <li>• Nippon India Large Cap Fund</li>
+                                <li>• DSP Large Cap Fund</li>
+                                <li>• Aditya Birla SL Large Cap Fund</li>
+                                <li>• ICICI Pru Bluechip Fund</li>
+                                <li>• </li>
+                            </ul>
+                        </div>
+
+                        <div class="popup-col">
+                            <h4 style="color: #bfa15f; border-color: rgba(191,161,95,0.2);">Mid Cap</h4>
+                            <ul>
+                                <li>• Invesco India Mid-Cap Fund</li>
+                                <li>• Kotak Mid Cap Fund</li>
+                                <li>• Bandhan Large & Mid Cap Fund</li>
+                                <li>• Nippon India Growth Fund</li>
+                                <li>• Axis Multicap Fund</li>
+                            </ul>
+                        </div>
+
+                        <div class="popup-col">
+                            <h4 style="color: #d32f2f; border-color: rgba(211,47,47,0.2);">Small Cap</h4>
+                            <ul>
+                                <li>• Invesco India Small Cap</li>
+                                <li>• HDFC Small Cap Fund</li>
+                                <li>• Bandhan Small Cap Fund</li>
+                                <li>• Invesco India Flexi Cap Fund</li>
+                                <li>• HDFC Flexi Cap Fund</li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="service-card">
+                <i class="fa-solid fa-gem service-icon"></i>
+                <h3>PMS, AIF & SIF</h3>
+                <p>Niche Portfolio Management Services and Alternative Investment Funds for specialized wealth mandates.</p>
+            </div>
+
+            <div class="service-card">
+                <i class="fa-solid fa-shield-halved service-icon"></i>
+                <h3>Insurance & Corporate Bonds</h3>
+                <p>Risk mitigation structuring alongside optimized business and asset-backed credit routing.</p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Knowledge Base (Sample / Dynamic Market Content) -->
+    <section id="insights" style="padding: 60px 20px; background-color: var(--light-bg); text-align: center;">
+    <h2 style="font-size: 32px; color: var(--primary-color); margin-bottom: 10px;">Market Insights</h2>
+    <p style="color: #666; margin-bottom: 40px;">Stay ahead with our exclusive monthly macroeconomic analysis and wealth strategies.</p>
+
+    <div style="max-width: 600px; margin: 0 auto; background: #ffffff; padding: 40px 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border-top: 5px solid #2e7d32;">
+        <div style="font-size: 50px; color: #d32f2f; margin-bottom: 15px;">
+            <i class="fa-solid fa-file-pdf"></i>
+        </div>
+        <h3 style="font-size: 22px; color: #333; margin-bottom: 10px;">Latest Monthly Wealth Report</h3>
+        <p style="color: #666; font-size: 14px; margin-bottom: 25px; line-height: 1.6;">
+            Click below to open or download our latest comprehensive review covering equity trends, fixed income outlooks, and specialized asset updates.
+        </p>
+        
+        <a href="Market_Insights.pdf" target="_blank" style="display: inline-block; padding: 14px 35px; background-color: #2e7d32; color: #ffffff; text-decoration: none; font-weight: bold; border-radius: 8px; box-shadow: 0 4px 12px rgba(46,125,50,0.2); transition: all 0.3s ease;">
+            <i class="fa-solid fa-arrow-up-right-from-square" style="margin-right: 8px;"></i> View Current Report
+        </a>
+    </div>
+<section id="transact" class="action-hub" style="background-color: var(--primary-color); color: var(--white); padding: 60px 8%; text-align: center;">
+        <h2>Client Transaction Terminal</h2>
+        <p style="margin-bottom: 30px;">Access your designated transactional accounts and investment platforms through our verified execution nodes.</p>
+        
+        <div class="portal-buttons" style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
+            
+            <a href="https://www.linkedin.com/in/sethideepak1" target="_blank" class="portal-btn">
+                <i class="fa-brands fa-linkedin"></i> Connect via LinkedIn
+            </a>
+
+            <a href="https://www.wealthy.in/partners/deepa22901" target="_blank" class="portal-btn">
+                <i class="fa-solid fa-lock"></i> Invest in Mutual Funds
+            </a>
+
+            <a href="https://wa.me/919867671008?text=Hello%20Wealth%20Nurturer,%20I%20would%20like%20to%20inquire%20about%20your%20financial%20advisory%20services." target="_blank" class="portal-btn" style="border-color: #25D366; background-color: transparent;">
+                <i class="fa-brands fa-whatsapp" style="color: #25D366;"></i> Chat on WhatsApp
+            </a>
+            
+        </div>
+    </section>    </div>
+
+    <input type="checkbox" id="toggle-mf" style="display: none;">
+
+    <div class="mf-dropdown-content" style="max-height: 0; overflow: hidden; transition: max-height 0.5s ease-out; background: #ffffff; color: #333; border-radius: 12px; max-width: 850px; margin: 0 auto; text-align: left;">
+        <div style="padding: 30px;">
+            <h3 style="color: #1b5e20; margin-bottom: 20px; display: flex; align-items: center; gap: 10px;">
+                <i class="fa-solid fa-list-check"></i> Top Recommended Mutual Funds
+            </h3>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px;">
+                <div style="background: #f9f9f9; padding: 15px; border-radius: 8px; border-top: 4px solid #2e7d32;">
+                    <h4 style="color: #2e7d32; margin-bottom: 10px;">Large Cap</h4>
+                    <ul style="list-style: none; padding: 0; font-size: 14px; line-height: 2;">
+                        <li>• ICICI Pru Bluechip</li>
+                        <li>• HDFC Top 100</li>
+                        <li>• SBI Bluechip</li>
+                        <li>• Mirae Asset Large Cap</li>
+                        <li>• Nippon India Large Cap</li>
+                    </ul>
+                </div>
+                <div style="background: #f9f9f9; padding: 15px; border-radius: 8px; border-top: 4px solid #bfa15f;">
+                    <h4 style="color: #bfa15f; margin-bottom: 10px;">Mid Cap</h4>
+                    <ul style="list-style: none; padding: 0; font-size: 14px; line-height: 2;">
+                        <li>• HDFC Mid-Cap Opp.</li>
+                        <li>• Kotak Emerging Equity</li>
+                        <li>• Axis Midcap</li>
+                        <li>• Nippon India Growth</li>
+                        <li>• SBI Magnum Midcap</li>
+                    </ul>
+                </div>
+                <div style="background: #f9f9f9; padding: 15px; border-radius: 8px; border-top: 4px solid #d32f2f;">
+                    <h4 style="color: #d32f2f; margin-bottom: 10px;">Small Cap</h4>
+                    <ul style="list-style: none; padding: 0; font-size: 14px; line-height: 2;">
+                        <li>• Nippon India Small Cap</li>
+                        <li>• HDFC Small Cap</li>
+                        <li>• SBI Small Cap</li>
+                        <li>• Axis Small Cap</li>
+                        <li>• Quant Small Cap</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+/* Dynamic Structural Overrides for Mobile Logo Visibility */
+        @media screen and (max-width: 768px) {
+            /* Force the logo container to render as a flex container */
+            .logo, 
+            nav .logo, 
+            .navbar .logo {
+                display: flex !important;
+                visibility: visible !important;
+                opacity: 1 !important;
+                align-items: center !important;
+                gap: 8px !important;
+            }
+
+            /* Force the inner logo image asset to reveal itself */
+            .logo img, 
+            nav .logo img, 
+            .navbar .logo img {
+                display: block !important;
+                visibility: visible !important;
+                opacity: 1 !important;
+                height: 35px !important; /* Scaled down neatly for mobile taskbars */
+                width: auto !important;
+            }
+
+            /* Force display block on text wrappers if template hides text elements */
+            .logo div, 
+            .logo span {
+                display: block !important;
+                visibility: visible !important;
+                opacity: 1 !important;
+            }
+        }   
+ <style>
+        #toggle-mf:checked ~ .mf-dropdown-content {
+            max-height: 500px;
+            margin-top: 20px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.25);
+        }
+/* Complete Mobile Header Visibility Overrides */
+        @media (max-width: 768px) {
+            .logo {
+                display: flex !important; /* Forces the main brand container to stay visible */
+            }
+            .logo img {
+                display: block !important; /* Forces the image file to stay visible */
+                height: 35px !important;   /* Slightly scales it down so it fits gracefully next to your mobile menu icon */
+            }
+        }
+    </style>
+</section>
+
+    <!-- Institutional Footer & Legal Disclaimers -->
+    <footer>
+        <div class="footer-content">
+            <div>
+    <p><strong>Wealth Nurturer</strong> | Financial Advisory & Wealth Solutions</p>
+    <p style="font-size: 12px; margin-top: 5px;">ARN: 358291 | Mutual Fund Distributor</p>
+</div>
+            <div class="social-links">
+    <a href="https://www.instagram.com/nurturing_wealth" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+</div>
+        </div>
+        <div class="disclaimer">
+            <strong>Regulatory Disclaimer:</strong> Investment in the securities market are subject to market risks. Read all the related documents carefully before investing. Mutual Fund distribution services are provided under standard regulatory frameworks. Registration details and past performance indicators are no guarantee of future returns.
+        </div>
+    </footer>
+
+<div id="mfModal" style="visibility: hidden; position: fixed; z-index: 10000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.6); backdrop-filter: blur(4px); align-items: center; justify-content: center;">
+    <div style="background-color: #ffffff; padding: 30px; border-radius: 16px; width: 90%; max-width: 850px; max-height: 85vh; overflow-y: auto; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25); position: relative; font-family: sans-serif;">
+        
+        <span onclick="closeMFModal()" style="position: absolute; right: 20px; top: 15px; font-size: 28px; font-weight: bold; color: #aaa; cursor: pointer; transition: color 0.2s;">&times;</span>
+        
+        <h2 style="color: #1b5e20; margin-top: 0; font-size: 24px; display: flex; align-items: center; gap: 10px;">
+            <i class="fa-solid fa-chart-line"></i> Top Mutual Fund Picks of the Month
+        </h2>
+        <p style="color: #666; font-size: 14px; margin-bottom: 25px;">Handpicked allocations managed across prime equity horizons.</p>
+
+        <div style="display: flex; border-bottom: 2px solid #e0e0e0; margin-bottom: 20px; gap: 10px;">
+            <button class="mf-tab-btn active-tab" onclick="openMFSegment(event, 'large-cap')" style="padding: 12px 24px; border: none; background: none; font-size: 16px; font-weight: bold; color: #2e7d32; border-bottom: 3px solid #2e7d32; cursor: pointer;">Large Cap</button>
+            <button class="mf-tab-btn" onclick="openMFSegment(event, 'mid-cap')" style="padding: 12px 24px; border: none; background: none; font-size: 16px; font-weight: bold; color: #666; cursor: pointer;">Mid Cap</button>
+            <button class="mf-tab-btn" onclick="openMFSegment(event, 'small-cap')" style="padding: 12px 24px; border: none; background: none; font-size: 16px; font-weight: bold; color: #666; cursor: pointer;">Small Cap</button>
+        </div>
+
+        <div id="large-cap" class="mf-segment-content" style="display: block;">
+            <table style="width: 100%; border-collapse: collapse; text-align: left;">
+                <tr style="background-color: #f5f5f5; color: #333; font-weight: bold; border-bottom: 2px solid #e0e0e0;"><td style="padding: 12px;">Fund Name</td><td style="padding: 12px; text-align: right;">Category</td></tr>
+                <tr style="border-bottom: 1px solid #eee;"><td style="padding: 12px; font-weight: 500; color: #222;">ICICI Prudential Bluechip Fund</td><td style="padding: 12px; text-align: right; color: #666;">Large Cap</td></tr>
+                <tr style="border-bottom: 1px solid #eee;"><td style="padding: 12px; font-weight: 500; color: #222;">HDFC Top 100 Fund</td><td style="padding: 12px; text-align: right; color: #666;">Large Cap</td></tr>
+                <tr style="border-bottom: 1px solid #eee;"><td style="padding: 12px; font-weight: 500; color: #222;">SBI Bluechip Fund</td><td style="padding: 12px; text-align: right; color: #666;">Large Cap</td></tr>
+                <tr style="border-bottom: 1px solid #eee;"><td style="padding: 12px; font-weight: 500; color: #222;">Mirae Asset Large Cap Fund</td><td style="padding: 12px; text-align: right; color: #666;">Large Cap</td></tr>
+                <tr style="border-bottom: 1px solid #eee;"><td style="padding: 12px; font-weight: 500; color: #222;">Nippon India Large Cap Fund</td><td style="padding: 12px; text-align: right; color: #666;">Large Cap</td></tr>
+                <tr style="border-bottom: 1px solid #eee;"><td style="padding: 12px; font-weight: 500; color: #222;">Kotak 
+            </table>
+        </div>
+
+        <div id="mid-cap" class="mf-segment-content" style="display: none;">
+            <table style="width: 100%; border-collapse: collapse; text-align: left;">
+                <tr style="background-color: #f5f5f5; color: #333; font-weight: bold; border-bottom: 2px solid #e0e0e0;"><td style="padding: 12px;">Fund Name</td><td style="padding: 12px; text-align: right;">Category</td></tr>
+                <tr style="border-bottom: 1px solid #eee;"><td style="padding: 12px; font-weight: 500; color: #222;">HDFC Mid-Cap Opportunities Fund</td><td style="padding: 12px; text-align: right; color: #666;">Mid Cap</td></tr>
+                <tr style="border-bottom: 1px solid #eee;"><td style="padding: 12px; font-weight: 500; color: #222;">Kotak Emerging Equity Fund</td><td style="padding: 12px; text-align: right; color: #666;">Mid Cap</td></tr>
+                <tr style="border-bottom: 1px solid #eee;"><td style="padding: 12px; font-weight: 500; color: #222;">Axis Midcap Fund</td><td style="padding: 12px; text-align: right; color: #666;">Mid Cap</td></tr>
+                <tr style="border-bottom: 1px solid #eee;"><td style="padding: 12px; font-weight: 500; color: #222;">Nippon India Growth Fund</td><td style="padding: 12px; text-align: right; color: #666;">Mid Cap</td></tr>
+                <tr style="border-bottom: 1px solid #eee;"><td style="padding: 12px; font-weight: 500; color: #222;">SBI Magnum Midcap Fund</td><td style="padding: 12px; text-align: right; color: #666;">Mid Cap</td></tr>
+                <tr style="border-bottom: 1px solid #eee;"><td style="padding: 12px; font-weight: 500; color: #222;">Mirae 
+            </table>
+        </div>
+
+        <div id="small-cap" class="mf-segment-content" style="display: none;">
+            <table style="width: 100%; border-collapse: collapse; text-align: left;">
+                <tr style="background-color: #f5f5f5; color: #333; font-weight: bold; border-bottom: 2px solid #e0e0e0;"><td style="padding: 12px;">Fund Name</td><td style="padding: 12px; text-align: right;">Category</td></tr>
+                <tr style="border-bottom: 1px solid #eee;"><td style="padding: 12px; font-weight: 500; color: #222;">Nippon India Small Cap Fund</td><td style="padding: 12px; text-align: right; color: #666;">Small Cap</td></tr>
+                <tr style="border-bottom: 1px solid #eee;"><td style="padding: 12px; font-weight: 500; color: #222;">HDFC Small Cap Fund</td><td style="padding: 12px; text-align: right; color: #666;">Small Cap</td></tr>
+                <tr style="border-bottom: 1px solid #eee;"><td style="padding: 12px; font-weight: 500; color: #222;">SBI Small Cap Fund</td><td style="padding: 12px; text-align: right; color: #666;">Small Cap</td></tr>
+                <tr style="border-bottom: 1px solid #eee;"><td style="padding: 12px; font-weight: 500; color: #222;">Axis Small Cap Fund</td><td style="padding: 12px; text-align: right; color: #666;">Small Cap</td></tr>
+                <tr style="border-bottom: 1px solid #eee;"><td style="padding: 12px; font-weight: 500; color: #222;">Kotak Small Cap Fund</td><td style="padding: 12px; text-align: right; color: #666;">Small Cap</td></tr>
+                <tr style="border-bottom: 1px solid #eee;"><td style="padding: 12px; font-weight: 500; color: #222;">Quant 
+            </table>
+        </div>
+
+    </div>
+</div>
+
+
+</body>
+</html>
